@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<url>http://www.apache.org/</url>
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.indsp</groupId>
+		<artifactId>playground-greeting-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../com.indsp.software.playground.greeting.parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>playground-greeting-launch</artifactId>
+	<name>Greeting Launch</name>
+	<description>
+	    Demo for a OSGi Project - API.
+    </description>
+	<packaging>pom</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>playground-greeting-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>playground-greeting-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>playground-greeting-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.9.1</version>
+			<!-- Note that this bundle declares a dependency on log4j -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.command</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.gogo.shell</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.enroute.pom.distro</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-indexer-maven-plugin</artifactId>
+				<version>3.4.0-SNAPSHOT</version>
+				<configuration>
+					<includeJar>true</includeJar>
+					<localURLs>REQUIRED</localURLs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>index</id>
+						<!-- phase>verify</phase-->
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-->plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-resolver-maven-plugin</artifactId>
+				<version>3.4.0-SNAPSHOT</version>
+				<configuration>
+					<failOnChanges>false</failOnChanges>
+					<resolve>true</resolve>
+					<bndruns>
+						<bndrun>distro-validation.bndrun</bndrun>
+					</bndruns>
+				</configuration>
+				<executions>
+					<execution>
+						<id>resolve</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>resolve</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin-->
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-export-maven-plugin</artifactId>
+				<configuration>
+					<resolve>true</resolve>
+					<failOnChanges>false</failOnChanges>
+					<bndruns>
+						<bndrun>run.bndrun</bndrun>
+					</bndruns>
+					<targetDir>.</targetDir>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>export</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
